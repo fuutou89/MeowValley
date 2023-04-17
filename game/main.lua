@@ -8,6 +8,9 @@ function _update60()
     anim_player()
     cam.x = flr(myplayer.x - 64)
     cam.y = flr(myplayer.y - 64)
+    if cam.y < 0 then
+        cam.y = 0
+    end
     camera(cam.x, cam.y)
 end
 

@@ -53,7 +53,7 @@ end
 
 function play_player_ani(player, base_sprite)
     player.tmr = player.tmr + 1
-    if player.tmr == 8 then
+    if player.tmr == 10 then
         player.tmr = 0
         player.ani_frame = player.ani_frame + 1
     end
