@@ -11,6 +11,9 @@ function _update60()
     if cam.y < 0 then
         cam.y = 0
     end
+    if cam.x < 0 then
+        cam.x = 0
+    end
     camera(cam.x, cam.y)
 end
 

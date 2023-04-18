@@ -41,7 +41,7 @@ function draw_player()
 end
 
 local idle_bspr = 0
-local walk_bspr = 8
+local walk_bspr = 4
 
 function play_player_idle()
     play_player_ani(myplayer, idle_bspr)
@@ -53,11 +53,11 @@ end
 
 function play_player_ani(player, base_sprite)
     player.tmr = player.tmr + 1
-    if player.tmr == 10 then
+    if player.tmr == 16 then
         player.tmr = 0
         player.ani_frame = player.ani_frame + 1
     end
-    if player.ani_frame == 4 then
+    if player.ani_frame == 2 then
         player.ani_frame = 0
         player.bspr = base_sprite
     else
