@@ -1,11 +1,11 @@
 function _init()
-    init_player()
+    add_scene_obj(new_player(), 2)
+    add_scene_obj(new_slime(), 1)
     cam = {x = 0, y = 0}
 end
 
 function _update60()
-    move_player()
-    anim_player()
+    update_scene_objs()
     cam.x = flr(myplayer.x - 64)
     cam.y = flr(myplayer.y - 64)
     if cam.y < 0 then
@@ -21,6 +21,6 @@ function _draw()
     -- pretty standard stuff here
     cls(12)
     map(0, 0, 0, 0, 128, 32)
-    draw_player()
+    draw_scene_objs()
     pal()
 end

@@ -1,68 +1,58 @@
 -- the player class
-player = {
+function new_player()
+    local player = {    
     x = 56,   -- x pos
     y = 64,   -- y pos
-    bspr = 32, -- base sprite
-    w = 2,    -- # of sprites wide
-    h = 2,    -- # of sprites high
+    spr_w = 2,    -- # of sprites wide
+    spr_h = 2,    -- # of sprites high
     dx = 0,   -- delta x
     dy = 0,   -- delta y
     flip_x = false, -- obvious
-    tmr = 0,   -- timer for animation
-    ani_frame = 0
-}
-   
--- player constructor
-function player:new(o)
-    self.__index = self
-    return setmetatable(o or {}, self)
+    -- property for collision check
+    w = 8,
+    h = 6,
+    ox = 4,
+    oy = 10,
+    -- animator
+    animator = {
+        animations = {
+            idle = {frame_rate = 15, unpack(split"0,2")},
+            walk = {frame_rate = 8, unpack(split"10,4,6")},
+            attack = {frame_rate = 7, next = "idle", unpack(split"8,10,12")},
+            crouch = {frame_rate = 15, next = "idle", unpack(split"12,14")}
+        },
+        play = "idle",
+        sprite = 0
+    },
+    -- scene obj base function
+    start = player_start,
+    update = player_update,
+    draw = player_draw}
+    return player
 end
 
-function init_player()
-    myplayer = player:new()
+function player_start(mplayer)
+    -- do nothing
+    myplayer = mplayer
 end
 
-function anim_player()
-    if abs(myplayer.dx) ~= 0 or abs(myplayer.dy) ~= 0 then
-        play_player_walk()
-    else
-        play_player_idle()
-    end
+function player_update(mplayer)
+    control_player(mplayer)
+    animate(mplayer.animator)
+    return true
 end
 
-function draw_player()
+function player_draw(mplayer)
     --transparency
     paltout ( 8)
 
     --shadow
-    spr(64, myplayer.x + 2, myplayer.y + 14, 2, 1)
+    spr(64, mplayer.x + 2, mplayer.y + 14, 2, 1)
 
-    spr(myplayer.bspr, flr(myplayer.x), myplayer.y, myplayer.w, myplayer.h, myplayer.flip_x)
-end
+    spr(mplayer.animator.sprite, flr(mplayer.x), mplayer.y, mplayer.spr_w, mplayer.spr_h, mplayer.flip_x)
 
-local idle_bspr = 0
-local walk_bspr = 4
-
-function play_player_idle()
-    play_player_ani(myplayer, idle_bspr)
-end
-
-function play_player_walk()
-    play_player_ani(myplayer, walk_bspr)
-end
-
-function play_player_ani(player, base_sprite)
-    player.tmr = player.tmr + 1
-    if player.tmr == 16 then
-        player.tmr = 0
-        player.ani_frame = player.ani_frame + 1
-    end
-    if player.ani_frame == 2 then
-        player.ani_frame = 0
-        player.bspr = base_sprite
-    else
-        player.bspr = base_sprite + 2 * player.ani_frame
-    end
+    -- draw collision debug
+    is_solid("full",mplayer,0,0,{},true)
 end
 
 function paltout ( _bg )
