@@ -2,6 +2,8 @@ function new_smoke(_x, _y, _vx, _vy, _w, layer)
     local smoke = {
         x = _x,
         y = _y,
+        center_x = 0,
+        center_y = 0,
         vx = _vx,
         vy = _vy,
         w = rnd2(_w, _w * 1.5),

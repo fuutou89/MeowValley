@@ -22,5 +22,4 @@ end
 
 function emoji_draw(emoji)
     print(emoji.char, emoji.x, emoji.y, emoji.color)
-    --spr(emoji.sprite, emoji.x, emoji.y, 1, 1, false)
 end
