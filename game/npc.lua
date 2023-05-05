@@ -49,7 +49,6 @@ end
 
 -- npc idle state
 function npc_idle_enter(_npc)
-    printh("npc_idle_enter")
     _npc.animator.play = "idle"
     _npc.dx = 0
     _npc.dy = 0
@@ -74,12 +73,10 @@ function npc_idle_exec(_npc)
 end
 
 function npc_idle_exit(_npc)
-    printh("npc_idle_exit")
 end
 
 -- npc wander state
 function npc_wander_enter(_npc)
-    printh("npc_wander_enter")
     _npc.animator.play = "walk"
     _npc.dx = rnd2(0.25 * -1, 0.25)
     _npc.dy = rnd2(0.25 * -1, 0.25)
@@ -92,8 +89,6 @@ function npc_wander_exec(_npc)
     else
         _npc.animator.play = "idle"
     end
-    if _npc.dx > 0 then _npc.flip_x = false
-    else _npc.flip_x = true end
     actor_move(_npc)
     _npc.wander_time = _npc.wander_time - 1
     if _npc.wander_time <= 0 then
@@ -102,7 +97,6 @@ function npc_wander_exec(_npc)
 end
 
 function npc_wander_exit(_npc)
-    printh("npc_wander_exit")
 end
 
 function npc_update(_npc)
@@ -119,8 +113,10 @@ end
 function npc_draw(_npc)
     --transparency
     paltout ( 8)
+
     --shadow
     spr(64, _npc.x + 2, _npc.y + 14, 2, 1)
+
     spr(_npc.animator.sprite, _npc.x, _npc.y, _npc.spr_w, _npc.spr_h, _npc.flip_x)
 
     -- draw collision debug

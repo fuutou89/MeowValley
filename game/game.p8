@@ -3,7 +3,6 @@ version 41
 __lua__
 #include main.lua
 #include player.lua
-#include player_ctrl.lua
 #include map_collision.lua
 #include animator.lua
 #include scene.lua

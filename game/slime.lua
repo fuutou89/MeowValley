@@ -10,7 +10,6 @@ function new_slime()
         dx = 0,
         dy = 0,
         flip_x = false,
-        next_wander_time = 0,
         -- property for collision check
         w = 8,
         h = 4,
@@ -36,16 +35,23 @@ function new_slime()
         draw = slime_draw,
         destory = slime_destory,
         on_collide_event = slime_on_collide_event,
-        hit = slime_hit
+        hit = slime_hit,
+        -- finite state machine
+        fsm = {states={}},
+        wander_time = 0,
     }
     return slime
 end
 
 function slime_start(_slime)
+    mk_state(_slime, "wander", slime_wander_enter, slime_wander_exec, slime_wander_exit)
+    mk_state(_slime, "death", slime_death_enter, slime_death_exec, slime_death_exit)
+    set_state(_slime, "wander")
 end
 
 function slime_update(_slime)
     --actor_wander(_slime, 0.25)
+    _slime.fsm.current.exec(_slime)
     actor_update_center(_slime, 8, 4)
     animate(_slime.animator)
     return _slime.animator.sprite ~= 0
@@ -71,8 +77,43 @@ function slime_on_collide_event(_slime, _collision_obj)
 end
 
 function slime_hit(_slime)
+    set_state(_slime, "death")
+end
+
+-- slime wander state
+function slime_wander_enter(_slime)
+    _slime.animator.play = "walk"
+end
+
+function slime_wander_exec(_slime)
+    if _slime.wander_time <= 0 then
+        _slime.wander_time = rnd2(50, 100)
+        local wander = rnd(10)
+        if wander > 5 then
+            _slime.dx = rnd2(0.25 * -1, 0.25)
+            _slime.dy = rnd2(0.25 * -1, 0.25)
+        else
+            _slime.dx = 0
+            _slime.dy = 0
+        end
+    end
+    _slime.wander_time = _slime.wander_time - 1
+    actor_move(_slime)
+end
+
+function slime_wander_exit(_slime)
+end
+
+-- slime death state
+function slime_death_enter(_slime)
     _slime.dx = 0
     _slime.dy = 0
-    _slime.next_wander_time = 999
     _slime.animator.play = "death"
 end
+
+function slime_death_exec(_slime)
+end
+
+function slime_death_exit(_slime)
+end
+
