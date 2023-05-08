@@ -2,6 +2,7 @@ function _init()
     add_scene_obj(new_player(), 2)
     add_scene_obj(new_slime(), 2)
     add_scene_obj(new_npc(), 2)
+    new_house()
     cam = {x = 0, y = 0}
 end
 

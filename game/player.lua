@@ -148,10 +148,8 @@ end
 
 function player_move(_player)
     if btn(⬅️) then
-        _player.flip_x = true
         _player.dx = -1
      elseif btn(➡️) then
-        _player.flip_x = false
         _player.dx = 1
      else
         _player.dx = 0
@@ -164,14 +162,8 @@ function player_move(_player)
      else
         _player.dy = 0
      end
-  
-     if not is_solid("full", _player, _player.dx, 0, {0}) then
-        _player.x = _player.x + _player.dx
-     end
-  
-     if not is_solid("full", _player, 0, _player.dy, {0}) then
-        _player.y = _player.y + _player.dy
-     end
+
+     actor_move(_player)
   
      local v = sqrt(_player.dx^2 + _player.dy^2)
      if v > 0 then

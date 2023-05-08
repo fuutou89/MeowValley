@@ -91,7 +91,9 @@ end
 
 function actor_move(_actor)
     if _actor.dx > 0 then _actor.flip_x = false
-    else _actor.flip_x = true end
+    elseif _actor.dx < 0 then
+        _actor.flip_x = true
+    end
     
     if not is_solid("full", _actor, _actor.dx, 0, {0}) then
         _actor.x = _actor.x + _actor.dx

@@ -40,6 +40,7 @@ function slash_update(p)
 end
 
 function slash_draw(p)
+    palt( 0, true)
     spr(p.animator.sprite, p.x, p.y, 1, 1, p.flip)
     draw_collider(p)
 end
