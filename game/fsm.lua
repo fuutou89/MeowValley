@@ -1,5 +1,6 @@
 function mk_state(obj, state_name, f_enter, f_exec, f_exit)
     local s = {}
+    s.state_name = state_name
     s.enter = f_enter
     s.exec = f_exec
     s.exit = f_exit

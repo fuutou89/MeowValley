@@ -6,6 +6,7 @@ function new_house()
         draw = house_draw,
     }
     add_scene_obj(house, 1)
+    return house
 end
 
 function house_update(_house)
