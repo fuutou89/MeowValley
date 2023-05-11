@@ -14,6 +14,10 @@ end
 
 -- title state
 function game_title_enter(_game)
+    add_scene_obj(new_player(), 2)
+    add_scene_obj(new_slime(), 2)
+    add_scene_obj(new_npc(), 2)
+    new_title()
 end
 
 function game_title_exec(_game)
@@ -23,9 +27,7 @@ function game_title_exec(_game)
 end
 
 function game_title_exit(_game)
-    add_scene_obj(new_player(), 2)
-    add_scene_obj(new_slime(), 2)
-    add_scene_obj(new_npc(), 2)
+
 end
 
 -- play state
@@ -34,14 +36,13 @@ function game_play_enter(_game)
 end
 
 function game_play_exec(_game)
-    update_scene_objs()
-    cam.x = flr(myplayer.x - 64)
-    cam.y = flr(myplayer.y - 64)
-    if cam.y < 0 then
-        cam.y = 0
+    main_camera.x = flr(myplayer.x - 64)
+    main_camera.y = flr(myplayer.y - 64)
+    if main_camera.y < 0 then
+        main_camera.y = 0
     end
-    if cam.x < 0 then
-        cam.x = 0
+    if main_camera.x < 0 then
+        main_camera.x = 0
     end
 end
 
@@ -51,18 +52,18 @@ end
 -- base 
 function game_start(_game)
     local house = new_house()
-    cam = {x = house.x - 64, y = house.y - 64}
+    main_camera = {x = house.x - 64, y = house.y - 64}
 end
 
 function game_update(_game)
     _game.fsm.current.exec(_game)
-    camera(cam.x, cam.y)
+    update_scene_objs()
+    update_ui_canvas()
+    camera(main_camera.x, main_camera.y)
 end
 
 function game_draw(_game)
     map(0, 0, 0, 0, 128, 32)
     draw_scene_objs()
-end
-
-function game_draw_title(_game)
+    draw_ui_canvas()
 end

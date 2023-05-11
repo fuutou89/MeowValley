@@ -17,3 +17,15 @@ function ysort(arr)
         end
     end
 end
+
+function uisort(arr)
+    for i,arri in inext,arr do
+        for j,arrj in inext, arr do
+            if arri.order == nil then arri.order = 0 end
+            if arrj.order == nil then arrj.order = 0 end
+            if arri.order<arrj.order then
+                arri,arr[i],arr[j]=arrj,arrj,arri
+            end
+        end
+    end
+end
