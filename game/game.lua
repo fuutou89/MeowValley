@@ -17,7 +17,7 @@ function game_title_enter(_game)
     add_scene_obj(new_player(), 2)
     add_scene_obj(new_slime(), 2)
     add_scene_obj(new_npc(), 2)
-    new_title()
+    _game.title = new_title()
 end
 
 function game_title_exec(_game)
@@ -32,7 +32,7 @@ end
 
 -- play state
 function game_play_enter(_game)
-
+    _game.title:hide()
 end
 
 function game_play_exec(_game)
