@@ -52,7 +52,7 @@ end
 -- base 
 function game_start(_game)
     local house = new_house()
-    main_camera = {x = house.x - 64, y = house.y - 64}
+    main_camera = {x = 240, y = 48}
 end
 
 function game_update(_game)
