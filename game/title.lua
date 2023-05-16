@@ -44,7 +44,7 @@ end
 
 function title_open(_title)
     _title.y_offset = 128
-    _title.y_target = 0
+    _title.y_target = 8
     _title.dy = -5
 end
 
@@ -69,6 +69,11 @@ end
 function hide_title(_title)
     _title.y_target = 128
     _title.dy = 5
+end
+
+function show_title(_title)
+    _title.y_target = 8
+    _title.dy = -5
 end
 
 function title_draw(_title)
@@ -107,7 +112,8 @@ function title_draw(_title)
 
     print("meow valley", title_pos.x + 48, title_pos.y + 68, 1)
 
-    print("press 🅾️", title_pos.x + 50, title_pos.y + 90, 2)
+    print("press 🅾️", title_pos.x + 50, title_pos.y + 91, 1)
+    print("press 🅾️", title_pos.x + 50, title_pos.y + 90, 3)
 
     palt(0, false)
     palt(8, true)

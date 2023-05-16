@@ -1,8 +1,8 @@
 -- the player class
 function new_player()
     local player = {    
-    x = 56,   -- x pos
-    y = 64,   -- y pos
+    x = 304,   -- x pos
+    y = 112,   -- y pos
     center_x = 32,
     center_y = 32,
     spr_w = 2,    -- # of sprites wide
@@ -24,6 +24,7 @@ function new_player()
     -- animator
     animator = {
         animations = {
+            sleep = {frame_rate = 15, unpack(split"12,14")},
             idle = {frame_rate = 15, unpack(split"0,2")},
             walk = {frame_rate = 8, unpack(split"10,4,6")},
             attack = {frame_rate = 7, next = "idle", unpack(split"8,10,12")},
@@ -45,11 +46,12 @@ end
 
 function player_start(_player)
     myplayer = _player
+    mk_state(_player, "sleep", player_sleep_enter, player_sleep_exec, player_sleep_exit)
     mk_state(_player, "idle", player_idle_enter, player_idle_exec, player_idle_exit)
     mk_state(_player, "walk", player_walk_enter, player_walk_exec, player_walk_exit)
     mk_state(_player, "attack", player_attack_enter, player_attack_exec, player_attack_exit)
     mk_state(_player, "crouch", player_crouch_enter, player_crouch_exec, player_crouch_exit)
-    set_state(_player, "idle")
+    set_state(_player, "sleep")
 end
 
 function player_update(_player)
@@ -80,6 +82,17 @@ end
 
 function player_on_collide_event(_player, _collision_obj)
     return false
+end
+
+-- player sleep state
+function player_sleep_enter(_player)
+    _player.animator.play = "sleep"
+end
+
+function player_sleep_exec(_player)
+end
+
+function player_sleep_exit(_player)
 end
 
 -- player idle state
