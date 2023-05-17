@@ -152,7 +152,7 @@ function npc_draw(_npc)
     --circ(_npc.center_x, _npc.center_y, 1)
     
     -- draw collider
-    draw_collider(_npc)
+    --draw_collider(_npc)
 end
 
 function npc_on_collide_event(_npc, _collision_obj)

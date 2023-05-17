@@ -65,7 +65,7 @@ function slime_draw(_slime)
     spr(_slime.animator.sprite, flr(_slime.x), _slime.y, _slime.spr_w, _slime.spr_h, _slime.flip_x)
     --is_solid("full",_slime,0,0,{},true)
     --circ(_slime.center_x, _slime.center_y, 1)
-    draw_collider(_slime)
+    --draw_collider(_slime)
 end
 
 function slime_destory(_slime)
@@ -106,6 +106,7 @@ end
 
 -- slime death state
 function slime_death_enter(_slime)
+    sfx(34)
     _slime.dx = 0
     _slime.dy = 0
     _slime.animator.play = "death"

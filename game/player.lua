@@ -11,6 +11,7 @@ function new_player()
     dy = 0,   -- delta y
     flip_x = false, -- obvious
     tag = "player",
+    walk_sfx_interval = 5,
     -- property for map collision check
     w = 8,
     h = 6,
@@ -77,7 +78,7 @@ function player_draw(_player)
     --circ(_player.center_x, _player.center_y, 1)
 
     -- draw collider
-    draw_collider(_player)
+    --draw_collider(_player)
 end
 
 function player_on_collide_event(_player, _collision_obj)
@@ -119,6 +120,11 @@ function player_walk_enter(_player)
 end
 
 function player_walk_exec(_player)
+    -- _player.walk_sfx_interval = _player.walk_sfx_interval - 1
+    -- if _player.walk_sfx_interval < 0 then
+    --     sfx(35)
+    --    _player.walk_sfx_interval = 5
+    -- end
     if not player_move(_player) then
      set_state(_player, "idle")
     end
@@ -129,6 +135,7 @@ end
 
 -- player attack state
 function player_attack_enter(_player)
+    sfx(33)
     _player.animator.play = "attack"
     local slash_x = _player.x
     if not _player.flip_x then slash_x = slash_x + 8 end
@@ -146,6 +153,7 @@ end
 
 -- player crouch state
 function player_crouch_enter(_player)
+    sfx(31)
     _player.animator.play = "crouch"
     new_emoji(_player.x + 8, _player.y + 10,"🐱", 20,128 + 14, 3)
 end

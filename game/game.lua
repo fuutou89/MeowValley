@@ -23,6 +23,7 @@ end
 
 function game_title_exec(_game)
     if btn(4) then
+        sfx(32)
         set_state(_game, "play")
     end
 end
